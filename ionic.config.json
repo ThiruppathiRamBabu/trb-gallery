@@ -1,0 +1,7 @@
+{
+  "name": "TRB Gallery",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
