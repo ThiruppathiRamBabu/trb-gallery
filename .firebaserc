@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "trb-photo-manager"
+  },
+  "targets": {
+    "trb-photo-manager": {
+      "hosting": {
+        "default": [
+          "trb-photo-manager"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

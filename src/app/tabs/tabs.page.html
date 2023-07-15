@@ -1,20 +1,28 @@
 <ion-tabs>
+ <ion-tab-bar slot="bottom">
 
-  <ion-tab-bar slot="bottom">
     <ion-tab-button tab="tab1">
-      <ion-icon aria-hidden="true" name="triangle"></ion-icon>
-      <ion-label>Tab 1</ion-label>
+      <ion-icon aria-hidden="true" id="open-loading" name="image"></ion-icon>
+      <ion-loading  trigger="open-loading" message="Loading..." [duration]="1000"></ion-loading>
+      <ion-label>photos</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
-      <ion-icon aria-hidden="true" name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
-    </ion-tab-button>
+    <!-- <ion-tab-button tab="tab2">
+      <ion-icon aria-hidden="true" (click)="takePicture()" name="camera"></ion-icon>
+      <ion-label>Camera</ion-label>
+    </ion-tab-button> -->
 
     <ion-tab-button tab="tab3">
-      <ion-icon aria-hidden="true" name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+      <ion-icon aria-hidden="true" id="open" name="images"></ion-icon>
+      <ion-loading trigger="open" message="Loading..." [duration]="1000"></ion-loading>
+      <ion-label>Album</ion-label>
     </ion-tab-button>
-  </ion-tab-bar>
 
+    <ion-tab-button tab="tab4">
+      <ion-icon aria-hidden="true" id="loading" name="information-circle"></ion-icon>
+      <ion-loading trigger="loading" message="Loading..." [duration]="1000"></ion-loading>
+      <ion-label>About</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
 </ion-tabs>
