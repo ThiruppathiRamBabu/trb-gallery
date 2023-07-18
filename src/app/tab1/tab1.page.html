@@ -4,8 +4,6 @@
       <img src="../../assets/download.png" alt="logo" width="60" height="40"/>
     </ion-title>
     <ion-icon class="ion-padding" size="large" slot="end" (click)="takePicture()"  name="camera"></ion-icon>
-      <ion-icon slot="end"  class="ion-padding" (click)="dark()" [name]="isDarkMode ? 'sunny-sharp' : 'moon-sharp'"
-        size="small"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +15,7 @@
   </ion-header> -->
  <ion-grid>
   <ion-row>
-    <ion-col size="4" *ngFor="let imageUrl of imageGallery">
+    <ion-col *ngFor="let imageUrl of imageGallery">
 <ion-thumbnail (click)="showPhotoViewer(imageUrl)">
   <img [src]="imageUrl" />
 </ion-thumbnail>

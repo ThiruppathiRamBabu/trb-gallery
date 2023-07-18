@@ -38,6 +38,7 @@
     "@ionic/angular": "^7.0.0",
     "@ionic/pwa-elements": "^3.2.1",
     "@ionic/storage-angular": "^4.0.0",
+    "@merryjs/photo-viewer": "^3.2.6",
     "com-sarriaroman-photoviewer": "^1.3.0",
     "cordova-plugin-photo-library": "^2.2.1",
     "cordova-plugin-photo-viewer": "^1.1.5",

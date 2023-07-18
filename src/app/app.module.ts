@@ -10,14 +10,17 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { PhotoViewer } from '@awesome-cordova-plugins/photo-viewer/ngx';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AngularFireAuthModule} from '@angular/fire/compat/auth'
+import { AngularFireModule } from '@angular/fire/compat';
 
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [ BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule, AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig) , 
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), 
      provideAuth(() => getAuth()), provideFirestore(() => getFirestore())],
   providers: [PhotoViewer, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],

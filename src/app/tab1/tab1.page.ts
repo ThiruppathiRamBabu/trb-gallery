@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { DomSanitizer } from '@angular/platform-browser';
 import {PhotoViewer} from '@awesome-cordova-plugins/photo-viewer/ngx';
-import { } from '@capacitor-community/photoviewer';
+import { NgFor } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+    selector: 'app-tab1',
+    templateUrl: 'tab1.page.html',
+    styleUrls: ['tab1.page.scss'],
+    standalone: true,
+    imports: [IonicModule, NgFor]
 })
 export class Tab1Page {
   imageUrl:any;
@@ -31,6 +35,7 @@ export class Tab1Page {
     this.imageUrl = image.dataUrl;
     console.log(this.imageUrl);
     // this.imageGallery.push(imageUrl);
+
     let data = localStorage.getItem('imageUrl');
     if (data) {
       this.imageGallery = this.imageGallery.concat(image.dataUrl);
@@ -52,10 +57,6 @@ export class Tab1Page {
 
     }
     this.photoViewer.show(imageUrl, options);
-  }
-  dark() {
-    this.isDarkMode = !this.isDarkMode;
-    document.body.classList.toggle('dark', this.isDarkMode);
   }
 
 }

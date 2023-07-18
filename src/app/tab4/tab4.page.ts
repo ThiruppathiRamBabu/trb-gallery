@@ -1,30 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
-  selector: 'app-tab4',
-  templateUrl: './tab4.page.html',
-  styleUrls: ['./tab4.page.scss'],
+    selector: 'app-tab4',
+    templateUrl: './tab4.page.html',
+    styleUrls: ['./tab4.page.scss'],
+    standalone: true,
+    imports: [IonicModule],
 })
 export class Tab4Page {
 
   constructor() { }
 
-  async takePicture() {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Uri,
-        source: CameraSource.Camera
-      });
-
-      var imageUrl = image.webPath;
-     
-    } catch (error) {
-      console.log(error);
-      
-    }
-  }
 
 }
