@@ -1,26 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      <img src="../../assets/download.png" alt="logo" width="60" height="40"/>
+    <ion-title slot="start">
+      <img src="../../assets/download.png" alt="logo" width="60" height="40" />
     </ion-title>
-    <ion-icon class="ion-padding" size="large" slot="end" (click)="takePicture()"  name="camera"></ion-icon>
+    <ion-icon class="ion-padding" size="large" slot="end" (click)="takePicture()" name="camera"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title> <img src="../../assets/logo.png" alt="logo" width="60" height="40"/></ion-title>
-    </ion-toolbar>
-  </ion-header> -->
- <ion-grid>
-  <ion-row>
-    <ion-col *ngFor="let imageUrl of imageGallery">
-<ion-thumbnail (click)="showPhotoViewer(imageUrl)">
-  <img [src]="imageUrl" />
-</ion-thumbnail>
-    </ion-col>
-  </ion-row>
- </ion-grid>
-
+  <ng-container *ngFor="let group of groupedImageGallery">
+  <ion-grid>
+    <ion-text>{{formatDate(group.captureDate)}}</ion-text>
+    <ion-row>
+      <ion-col *ngFor="let imageUrl of group.images">
+        <ion-thumbnail (click)="openFullscreenView(imageUrl.imgUrl)">
+          <ion-img [src]="imageUrl.imgUrl"></ion-img>
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>
 </ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <swiper-container #swiper (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)" [zoom]="true" [loop]="false">
+        <swiper-slide *ngFor="let imageUrl of imageGallery">
+          <div class="swiper-zoom-container">
+          <ion-img [src]="selectedImageUrl"></ion-img>
+        </div>
+        </swiper-slide>
+      </swiper-container>
+    </ion-content>
+    <ion-button color="danger" (click)="delete(false)">
+      <ion-icon name="trash" slot="start"></ion-icon>
+    </ion-button>
+  </ng-template>
+</ion-modal>

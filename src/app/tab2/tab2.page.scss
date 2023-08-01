@@ -1,4 +1,30 @@
 ion-thumbnail {
     --size: 140px;
     --border-radius: 14px;
+    cursor: pointer;
   }
+  ion-row{
+    display: flex;
+  }
+  ion-thumbnail.galleryThumb{
+    cursor: pointer;
+    --size: 80px;
+    border-radius: 13px;
+    overflow: hidden;
+  }
+  ion-modal.preview {
+    ion-content {
+      --background: rgba(0, 0, 0, 0.9);
+    }
+  }
+  
+  swiper-container{
+    width: 100%;
+    height: 100%;
+}
+swiper-slide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

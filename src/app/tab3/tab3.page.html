@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
+    <ion-title slot="start">
       <img src="../../assets/download.png" alt="logo" width="60" height="40"/>
     </ion-title>
     <!-- <ion-icon class="ion-padding" size="large" slot="end" (click)="takePicture()"  name="camera"></ion-icon> -->
@@ -18,6 +18,10 @@
       <ion-label class="ion-padding">Mode</ion-label>
       <ion-icon slot="end"  class="ion-padding" (click)="dark()" [name]="isDarkMode ? 'sunny-sharp' : 'moon-sharp'"
       size="small"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-padding">Logout</ion-label>
+      <ion-icon slot="end" class="ion-padding" name="log-out-outline" (click)="logout()"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

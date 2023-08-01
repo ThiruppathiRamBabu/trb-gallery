@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { PhotoService } from '../photo.service';
+import { firstValueFrom, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +15,19 @@ export class LoginPage {
   loginForm!: FormGroup;
   passwordVisible: boolean = false;
   password: string = '';
-  constructor(private router: Router, private photoservice: PhotoService, private alt: AlertController, private loadctrl: LoadingController) {
+  constructor(private router: Router, private ps: PhotoService, private alt: AlertController, private loadctrl: LoadingController) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     })
     // this.reset();
   }
-  onSubmit() {
+  async onSubmit() {
     const userData = Object.assign(this.loginForm.value, { email: this.loginForm.value.email })
-    this.photoservice.login(userData).then((res: any) => {
+    this.ps.login(userData).then(async (res: any) => {
+      console.log('login',res);
+     const data =  await firstValueFrom(this.ps.getCollectionByQuery('users','email','==', res.user._delegate.providerData[0].email).pipe(take(1)));
+     localStorage.setItem('loginData',JSON.stringify(data));
       this.router.navigate(['/tabs']);
     }, async error => {
       const alert = await this.alt.create({
@@ -53,7 +57,9 @@ export class LoginPage {
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
     console.log('click')
-    this.photoservice.signInWithGoogle().then((res: any) => {
+    this.ps.signInWithGoogle().then(async(res: any) => {
+      const data = await firstValueFrom(this.ps.getCollectionByQuery('users','email','==',res.user._delegate.providerData[0].email).pipe(take(1)));
+      localStorage.setItem('loginData',JSON.stringify(data));
       this.router.navigate(['/tabs']);
     }).catch((error: any) => {
       console.log(error);

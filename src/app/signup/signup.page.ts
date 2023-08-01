@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PhotoService } from '../photo.service';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { firstValueFrom, take } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,7 @@ export class SignupPage {
   signupForm!: FormGroup;
   passwordVisible: boolean = false;
   password: string = '';
-  constructor(private router: Router, private photoservice: PhotoService, private alt: AlertController, private loadctrl: LoadingController) {
+  constructor(private router: Router, private ps: PhotoService, private alt: AlertController, private loadctrl: LoadingController) {
     this.signupForm = new FormGroup({
       firstname: new FormControl('', Validators.required),
       lastname: new FormControl('', Validators.required),
@@ -34,7 +35,11 @@ export class SignupPage {
     console.log('Loading dismissed!');
     console.log(this.signupForm.value)
     const userData = Object.assign(this.signupForm.value, { email: this.signupForm.value.email })
-    this.photoservice.signIn(userData).then((res: any) => {
+    this.ps.signIn(userData).then(async (res: any) => {
+      console.log('response', res);
+     const user = await this.ps.add('users', res.user._delegate.providerData[0]);
+     console.log('signup', user);
+     localStorage.setItem('userRef',JSON.stringify(user.path));
       this.router.navigate(['/']);
     }).catch((error: any) => {
       console.log(error);
@@ -51,7 +56,11 @@ export class SignupPage {
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
     console.log('click')
-    this.photoservice.signInWithGoogle().then((res: any) => {
+    this.ps.signInWithGoogle().then(async (res: any) => {
+      console.log('resp', res);
+      const user: any = await this.ps.add('users', res.user._delegate.providerData[0]);
+      console.log('user', user);
+      localStorage.setItem('userRef', JSON.stringify(user.path));
       this.router.navigate(['/tabs']);
     }).catch((error: any) => {
       console.log(error);

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      <img src="../../assets/download.png" alt="logo" width="60" height="40"/>
+    <ion-title slot="start">
+      <img src="../../assets/download.png" alt="logo" width="60" height="40" />
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,8 +12,56 @@
       <ion-title><img src="../../assets/logo.png" alt="logo" width="60" height="40"></ion-title>
     </ion-toolbar>
   </ion-header> -->
-  <ion-thumbnail>
-    <img class="ion-padding" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-  </ion-thumbnail>
-
+  <ion-row>
+    <ion-col>
+      <ion-thumbnail (click)="openModal()">
+        <ion-img class="ion-padding" [src]="selectedThumbnail"></ion-img>
+      </ion-thumbnail>
+      <ion-col style="margin-left: 30px;">
+        <ion-text>Camera</ion-text>
+      </ion-col>
+    </ion-col>
+  </ion-row>
 </ion-content>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-row>
+        <ion-col *ngFor="let image of imageGallery">
+          <ion-thumbnail class="galleryThumb" (click)="openFullscreenView(image.imgUrl)">
+            <ion-img [src]="image.imgUrl"></ion-img>
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal class="preview" [isOpen]="isAnotherModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeAnotherModal()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <swiper-container (afterinit)="swiperReady()" (slidechange)="swiperSlideChanged($event)" [zoom]="true" [loop]="false">
+        <swiper-slide *ngFor="let image of imageGallery">
+          <div class="swiper-zoom-container">
+          <ion-img [src]="selectedImageUrl"></ion-img>
+        </div>
+        </swiper-slide>
+      </swiper-container>
+    </ion-content>
+  </ng-template>
+</ion-modal>

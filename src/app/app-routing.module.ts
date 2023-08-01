@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { canActivateTeam } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [canActivateTeam]
   },
+  // {
+  //   path:'',
+  //   redirectTo: 'tabs',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'tab4',
     loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)

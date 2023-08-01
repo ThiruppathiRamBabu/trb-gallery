@@ -1,7 +1,29 @@
-ion-thumbnail {
-    // --size: 100px;
-    --border-radius: 14px;
+// ion-thumbnail {
+//      --size: 100px;
+//     --border-radius: 14px;
+//   }
+
+  ion-thumbnail {
+    cursor: pointer;
+    // width: 90px;
+    // height: 90px;
+    --size: 90px;
+    border-radius: 13px;
+    overflow: hidden;
   }
-  ion-col{
+  ion-modal {
+    ion-content {
+      --background: rgba(0, 0, 0, 0.9);
+    }
+  }
+  
+  swiper-container{
+    width: 100%;
+    height: 100%;
+}
+swiper-slide{
     display: flex;
-  }
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
